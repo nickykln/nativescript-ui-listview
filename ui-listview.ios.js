@@ -703,6 +703,16 @@ var ExtendedHeaderCell = /** @class */ (function (_super) {
         }
         return targetSize;
     };
+    ExtendedHeaderCell.prototype.systemLayoutSizeFittingSizeWithHorizontalFittingPriorityVerticalFittingPriority = function (targetSize, horizontalFittingPriority, verticalFittingPriority) {
+        if (this.view && this.view.parent) {
+            var listView = this.view.parent;
+            listView._preparingCell = true;
+            var dimensions = listView.layoutHeaderFooterCell(this);
+            listView._preparingCell = false;
+            return CGSizeMake(view_1.layout.toDeviceIndependentPixels(dimensions.measuredWidth), view_1.layout.toDeviceIndependentPixels(dimensions.measuredHeight));
+        }
+        return targetSize;
+    };
     return ExtendedHeaderCell;
 }(TKListViewHeaderCell));
 var ExtendedFooterCell = /** @class */ (function (_super) {
