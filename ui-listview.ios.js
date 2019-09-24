@@ -747,6 +747,16 @@ var ExtendedFooterCell = /** @class */ (function (_super) {
         }
         return targetSize;
     };
+    ExtendedFooterCell.prototype.systemLayoutSizeFittingSizeWithHorizontalFittingPriorityVerticalFittingPriority = function (targetSize) {
+        if (this.view && this.view.parent) {
+            var listView = this.view.parent;
+            listView._preparingCell = true;
+            var dimensions = listView.layoutHeaderFooterCell(this);
+            listView._preparingCell = false;
+            return CGSizeMake(view_1.layout.toDeviceIndependentPixels(dimensions.measuredWidth), view_1.layout.toDeviceIndependentPixels(dimensions.measuredHeight));
+        }
+        return targetSize;
+    };
     return ExtendedFooterCell;
 }(TKListViewFooterCell));
 var ExtendedLoadOnDemandCell = /** @class */ (function (_super) {
@@ -815,6 +825,16 @@ var ExtendedListViewCell = /** @class */ (function (_super) {
         }
     };
     ExtendedListViewCell.prototype.systemLayoutSizeFittingSize = function (targetSize) {
+        if (this.view && this.view.itemView && this.view.itemView.parent) {
+            var owner = this.view.itemView.parent;
+            owner._preparingCell = true;
+            var dimensions = owner.layoutCell(this, undefined);
+            owner._preparingCell = false;
+            return CGSizeMake(view_1.layout.toDeviceIndependentPixels(dimensions.measuredWidth), view_1.layout.toDeviceIndependentPixels(dimensions.measuredHeight));
+        }
+        return targetSize;
+    };
+    ExtendedListViewCell.prototype.systemLayoutSizeFittingSizeWithHorizontalFittingPriorityVerticalFittingPriority = function (targetSize) {
         if (this.view && this.view.itemView && this.view.itemView.parent) {
             var owner = this.view.itemView.parent;
             owner._preparingCell = true;
